@@ -6,7 +6,7 @@ import datetime
 import csv
 
 
-with open('schedule.csv', mode='r') as inp:
+with open(r'schedule.csv', mode='r') as inp:
     reader = csv.reader(inp)
     dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
@@ -42,12 +42,12 @@ GPIO.setmode(GPIO.BCM)
 if upper_limit > temperature < lower_limit:
     set_state(20, 'high')
     # print('Heater on')
-    current_state = 1
+    # current_state = 1
 
 if upper_limit < temperature > lower_limit:
     set_state(20, 'low')
     # print('Heater off')
-    current_state = 0
+    # current_state = 0
 
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': temperature,
                                                                   'field2': humidity, 'field3': current_state})
