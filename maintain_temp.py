@@ -1,7 +1,19 @@
 import Adafruit_DHT
 import requests
 import RPi.GPIO as GPIO
-# import time
+import time
+import datetime
+import csv
+
+
+with open('schedule.csv', mode='r') as inp:
+    reader = csv.reader(inp)
+    dict_from_csv = {rows[0]: rows[1] for rows in reader}
+
+
+
+
+
 
 
 def set_state(set_pin, new_state):
@@ -12,10 +24,11 @@ def set_state(set_pin, new_state):
     else:
         print('unknown state')
 
-
+temp_variance = 0.5
 ideal = 24
-upper_limit = ideal + 0.5
-lower_limit = ideal - 0.5
+# ideal = dict_from_csv[str(datetime.datetime.now().hour)]
+upper_limit = ideal + temp_variance
+lower_limit = ideal - temp_variance
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
