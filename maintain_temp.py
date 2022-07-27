@@ -12,6 +12,7 @@ with open(r'schedule.csv', mode='r') as inp:
 
 
 def get_state(pin_state):
+    GPIO.setup(20, GPIO.IN)
     if GPIO.input(pin_state):
         return 0
     else:
@@ -36,9 +37,9 @@ pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(20, GPIO.IN)
-current_state = get_state(20)
-
+# GPIO.setup(20, GPIO.IN)
+# current_state = get_state(20)
+# current_state = 10
 
 # while True:
 humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
@@ -50,13 +51,11 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
 if upper_limit > temperature < lower_limit:
     set_state(20, 'high')
-    GPIO.setup(20, GPIO.IN)
     # print('Heater on')
     current_state = get_state(20)
 
 if upper_limit < temperature > lower_limit:
     set_state(20, 'low')
-    GPIO.setup(20, GPIO.IN)
     # print('Heater off')
     current_state = get_state(20)
 
