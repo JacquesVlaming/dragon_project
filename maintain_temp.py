@@ -11,11 +11,6 @@ with open('schedule.csv', mode='r') as inp:
     dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
 
-
-
-
-
-
 def set_state(set_pin, new_state):
     if new_state == 'high':
         GPIO.setup(set_pin, GPIO.LOW)
@@ -24,9 +19,10 @@ def set_state(set_pin, new_state):
     else:
         print('unknown state')
 
+
 temp_variance = 0.5
-ideal = 24
-# ideal = dict_from_csv[str(datetime.datetime.now().hour)]
+# ideal = 24
+ideal = dict_from_csv[str(datetime.datetime.now().hour)]
 upper_limit = ideal + temp_variance
 lower_limit = ideal - temp_variance
 pin = 4
