@@ -12,7 +12,7 @@ with open(r'schedule.csv', mode='r') as inp:
 
 
 def get_state(pin_state):
-    GPIO.setup(20, GPIO.IN)
+    # GPIO.setup(20, GPIO.IN)
     if GPIO.input(pin_state):
         return 0
     else:
@@ -29,7 +29,7 @@ def set_state(set_pin, new_state):
 
 
 temp_variance = 0.5
-# ideal = 24
+# ideal = 21.5
 ideal = dict_from_csv[str(datetime.datetime.now().hour)]
 upper_limit = float(ideal) + temp_variance
 lower_limit = float(ideal) - temp_variance
@@ -44,19 +44,19 @@ GPIO.setmode(GPIO.BCM)
 # while True:
 humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
-# print('Current temp: ' + str(temperature))
+print('Current temp: ' + str(temperature))
 
 
 # current_state = get_state(20)
 
 if upper_limit > temperature < lower_limit:
     set_state(20, 'high')
-    # print('Heater on')
+    print('Heater on')
     current_state = get_state(20)
 
 if upper_limit < temperature > lower_limit:
     set_state(20, 'low')
-    # print('Heater off')
+    print('Heater off')
     current_state = get_state(20)
 
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': temperature,
