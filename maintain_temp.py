@@ -6,9 +6,9 @@ import datetime
 import csv
 
 
-with open(r'schedule.csv', mode='r') as inp:
-    reader = csv.reader(inp)
-    dict_from_csv = {rows[0]: rows[1] for rows in reader}
+# with open(r'schedule.csv', mode='r') as inp:
+#     reader = csv.reader(inp)
+#     dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
 
 def get_state(pin_state):
@@ -29,8 +29,8 @@ def set_state(set_pin, new_state):
 
 
 temp_variance = 0.5
-# ideal = 21.5
-ideal = dict_from_csv[str(datetime.datetime.now().hour)]
+ideal = 21.5
+# ideal = dict_from_csv[str(datetime.datetime.now().hour)]
 upper_limit = float(ideal) + temp_variance
 lower_limit = float(ideal) - temp_variance
 
@@ -38,8 +38,8 @@ pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
 GPIO.setmode(GPIO.BCM)
-# GPIO.setup(20, GPIO.IN)
-# current_state = get_state(20)
+GPIO.setup(20, GPIO.IN)
+current_state = get_state(20)
 # current_state = 10
 
 # while True:
@@ -50,15 +50,30 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
 # current_state = get_state(20)
 
-if upper_limit > temperature > lower_limit:
-    set_state(20, 'high')
-    # print('Heater on')
+if temperature < upper_limit:
+    # set_state(20, 'high')
+    print('Heater on')
+    instruction = 'high'
     current_state = get_state(20)
+else:
+    # set_state(20, 'low')
+    print('Heater off')
+    instruction = 'low'
 
-if upper_limit < temperature > lower_limit:
-    set_state(20, 'low')
-    # print('Heater off')
+if temperature > lower_limit:
+    # set_state(20, 'low')
+    print('Heater off')
+    instruction = 'low'
     current_state = get_state(20)
+else:
+    # set_state(20, 'high')
+    instruction = 'high'
+    print('Heater on')
+
+set_state(20, instruction)
+
+
+
 
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': round(temperature, 1),
                                                                   'field2': humidity, 'field3': current_state})
