@@ -35,6 +35,7 @@ lower_limit = float(ideal) - temp_variance
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
 current_state = get_state(20)
 
@@ -44,8 +45,8 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
 # print('Current temp: ' + str(temperature))
 
-GPIO.setmode(GPIO.BCM)
-current_state = get_state(20)
+
+# current_state = get_state(20)
 
 if upper_limit > temperature < lower_limit:
     set_state(20, 'high')
