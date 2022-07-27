@@ -53,4 +53,4 @@ if upper_limit > temperature > lower_limit:
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': temperature,
                                                                   'field2': humidity, 'field3': current_state})
 
-# time.sleep(60)
+time.sleep(60)
