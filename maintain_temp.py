@@ -11,6 +11,13 @@ with open(r'schedule.csv', mode='r') as inp:
     dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
 
+def get_state(pin_state):
+    if GPIO.input(pin_state):
+        return 0
+    else:
+        return 1
+
+
 def set_state(set_pin, new_state):
     if new_state == 'high':
         GPIO.setup(set_pin, GPIO.LOW)
@@ -41,13 +48,15 @@ GPIO.setmode(GPIO.BCM)
 
 if upper_limit > temperature < lower_limit:
     set_state(20, 'high')
+    GPIO.setup(20, GPIO.IN)
     # print('Heater on')
-    # current_state = 1
+    current_state = get_state(20)
 
 if upper_limit < temperature > lower_limit:
     set_state(20, 'low')
+    GPIO.setup(20, GPIO.IN)
     # print('Heater off')
-    # current_state = 0
+    current_state = get_state(20)
 
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': temperature,
                                                                   'field2': humidity, 'field3': current_state})
