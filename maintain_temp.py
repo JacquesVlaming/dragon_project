@@ -44,7 +44,7 @@ GPIO.setmode(GPIO.BCM)
 # while True:
 humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
-print('Current temp: ' + str(temperature))
+# print('Current temp: ' + str(temperature))
 
 
 # current_state = get_state(20)
