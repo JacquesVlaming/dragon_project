@@ -31,10 +31,9 @@ def set_state(set_pin, new_state):
 temp_variance = 0.5
 # ideal = 21.5
 ideal = dict_from_csv[str(datetime.datetime.now().hour)]
-# upper_limit = float(ideal) + temp_variance
-# lower_limit = float(ideal) - temp_variance
-upper_limit = float(ideal)
-lower_limit = float(ideal)
+upper_limit = float(ideal) + temp_variance
+lower_limit = float(ideal) - temp_variance
+
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
