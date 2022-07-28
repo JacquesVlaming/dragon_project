@@ -1,3 +1,7 @@
+from os import listdir
+from os.path import isfile, join
+onlyfiles = [f for f in listdir('./db') if isfile(join('./db', f))]
+
 import Adafruit_DHT
 import requests
 import RPi.GPIO as GPIO
@@ -40,32 +44,3 @@ sensor_type = 22
 GPIO.setmode(GPIO.BCM)
 # GPIO.setup(20, GPIO.IN)
 # current_state = get_state(20)
-
-while True:
-    humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
-
-    print('Current temp: ' + str(temperature))
-
-    if temperature < lower_limit:# and temperature < upper_limit:
-        print('Heater on Bottom')
-        instruction = 'high'
-    else:
-        instruction = 'low'
-        print('Heater off Bottom')
-
-    if temperature > upper_limit:
-        print('Heater off TOP')
-        instruction = 'low'
-    else:
-        print('Heater on TOP')
-        instruction = 'high'
-
-
-
-    set_state(20, instruction)
-    current_state = get_state(20)
-
-    r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': round(temperature, 1),
-                                                                  'field2': humidity, 'field3': current_state})
-
-    time.sleep(60)
