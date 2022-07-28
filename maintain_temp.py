@@ -40,42 +40,29 @@ sensor_type = 22
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
 current_state = get_state(20)
-# current_state = 10
 
 # while True:
 humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
 
-# print('Current temp: ' + str(temperature))
-
-
-# current_state = get_state(20)
+print('Current temp: ' + str(temperature))
 
 if temperature < upper_limit:
-    # set_state(20, 'high')
     print('Heater on')
     instruction = 'high'
-    current_state = get_state(20)
 else:
-    # set_state(20, 'low')
     print('Heater off')
     instruction = 'low'
-
-if temperature > lower_limit:
-    # set_state(20, 'low')
+if temperature > lower_limit or temperature > upper_limit:
     print('Heater off')
     instruction = 'low'
-    current_state = get_state(20)
 else:
-    # set_state(20, 'high')
     instruction = 'high'
     print('Heater on')
 
 set_state(20, instruction)
-
-
-
+current_state = get_state(20)
 
 r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key, 'field1': round(temperature, 1),
-                                                                  'field2': humidity, 'field3': current_state})
+                                                              'field2': humidity, 'field3': current_state})
 
     # time.sleep(60)
