@@ -26,13 +26,13 @@ GPIO.setwarnings(False)
 while True:
     try:
         humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
-        print('Current Temp: ' + str(temperature))
+        # print('Current Temp: ' + str(temperature))
         if not GPIO.input(20) and (temperature > upper_limit):
             GPIO.setup(20, GPIO.HIGH)
-            print('Turning Off')
+            # print('Turning Off')
         elif temperature < lower_limit:
             GPIO.setup(20, GPIO.LOW)
-            print('Turning On')
+            # print('Turning On')
 
         r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
                                                                           'field1': round(temperature, 1),
