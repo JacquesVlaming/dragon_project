@@ -38,7 +38,7 @@ while True:
         r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
                                                                           'field1': round(temperature, 1),
                                                                           'field2': humidity,
-                                                                          'field3': not GPIO.input(20)})
+                                                                          'field3': not int(not GPIO.input(20))})
         time.sleep(60)
     except:
         pass
