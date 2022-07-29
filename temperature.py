@@ -16,13 +16,13 @@ GPIO.setup(20, GPIO.IN)
 
 while True:
     try:
-        # with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
-        #     reader = csv.reader(inp)
-        #     dict_from_csv = {rows[0]: rows[1] for rows in reader}
+        with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
+            reader = csv.reader(inp)
+            dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
         temp_variance = 0.5
-        ideal = 25
-        # ideal = dict_from_csv[str(datetime.datetime.now().hour)]
+        # ideal = 25
+        ideal = dict_from_csv[str(datetime.datetime.now().hour)]
         upper_limit = float(ideal) + temp_variance
         lower_limit = float(ideal) - temp_variance
 
