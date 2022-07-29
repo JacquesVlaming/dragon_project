@@ -5,12 +5,12 @@ import time
 import datetime
 import csv
 
-with open(r'schedule.csv', mode='r') as inp:
+with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
     reader = csv.reader(inp)
     dict_from_csv = {rows[0]: rows[1] for rows in reader}
 
 temp_variance = 0.5
-# ideal = 27
+# ideal = 25
 ideal = dict_from_csv[str(datetime.datetime.now().hour)]
 upper_limit = float(ideal) + temp_variance
 lower_limit = float(ideal) - temp_variance
@@ -20,19 +20,20 @@ thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
 
 GPIO.setmode(GPIO.BCM)
+# GPIO.setwarnings(False)
 GPIO.setup(20, GPIO.IN)
-GPIO.setwarnings(False)
+# GPIO.setwarnings(False)
 
 while True:
     try:
         humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
-        # print('Current Temp: ' + str(temperature))
+        print('Current Temp: ' + str(temperature))
         if not GPIO.input(20) and (temperature > upper_limit):
             GPIO.setup(20, GPIO.HIGH)
-            # print('Turning Off')
+            print('Turning Off')
         elif temperature < lower_limit:
             GPIO.setup(20, GPIO.LOW)
-            # print('Turning On')
+            print('Turning On')
 
         r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
                                                                           'field1': round(temperature, 1),
