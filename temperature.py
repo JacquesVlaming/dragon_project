@@ -5,16 +5,6 @@ import time
 import datetime
 import csv
 
-with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
-    reader = csv.reader(inp)
-    dict_from_csv = {rows[0]: rows[1] for rows in reader}
-
-temp_variance = 0.5
-# ideal = 25
-ideal = dict_from_csv[str(datetime.datetime.now().hour)]
-upper_limit = float(ideal) + temp_variance
-lower_limit = float(ideal) - temp_variance
-
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
@@ -26,8 +16,19 @@ GPIO.setup(20, GPIO.IN)
 
 while True:
     try:
+        # with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
+        #     reader = csv.reader(inp)
+        #     dict_from_csv = {rows[0]: rows[1] for rows in reader}
+
+        temp_variance = 0.5
+        ideal = 25
+        # ideal = dict_from_csv[str(datetime.datetime.now().hour)]
+        upper_limit = float(ideal) + temp_variance
+        lower_limit = float(ideal) - temp_variance
+
         humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
         print('Current Temp: ' + str(temperature))
+
         if not GPIO.input(20) and (temperature > upper_limit):
             GPIO.setup(20, GPIO.HIGH)
             print('Turning Off')
