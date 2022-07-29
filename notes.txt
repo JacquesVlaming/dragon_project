@@ -1,0 +1,75 @@
+sudo nano /home/dragon/.bashrc
+
+cd /home/dragon/dragon_project/ && python /home/dragon/dragon_project/temperature.py
+
+*******************************************
+
+cd /lib/systemd/system/
+sudo nano maintain_temp.service
+
+
+/usr/bin/python3 /home/dragon/dragon_project/temperature.py
+
+
+*******************************************
+
+[Unit]
+Description=Run Temperature
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/dragon/dragon_project/temperature.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
+*******************************************
+
+sudo chmod 644 /lib/systemd/system/maintain_temp.service
+chmod +x /home/dragon/dragon_project/temperature.py
+sudo systemctl daemon-reload
+sudo systemctl enable maintain_temp.service
+sudo systemctl start maintain_temp.service
+
+
+*******************************************
+
+
+Check status
+sudo systemctl status maintain_temp.service
+
+Start service
+sudo systemctl start maintain_temp.service
+
+Restart service
+sudo systemctl restart maintain_temp.service
+
+
+Stop service
+sudo systemctl stop maintain_temp.service
+
+Check service's log
+sudo journalctl -f -u maintain_temp.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
