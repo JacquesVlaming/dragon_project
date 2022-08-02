@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import datetime
 import time
 
-times = [16, 17]
+times = [11, 12, 13, 14, 15]
 
 GPIO.setmode(GPIO.BCM)
 
