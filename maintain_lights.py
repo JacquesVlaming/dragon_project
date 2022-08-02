@@ -1,6 +1,11 @@
 import RPi.GPIO as GPIO
+import datetime
+import time
+
+times = [16, 17]
 
 GPIO.setmode(GPIO.BCM)
+
 
 def set_state(set_pin, new_state):
     if new_state == 'high':
@@ -10,4 +15,13 @@ def set_state(set_pin, new_state):
     else:
         print('unknown state')
 
-set_state(21, 'high')
+
+while True:
+    hour = datetime.datetime.now().hour
+
+    if hour in times:
+        set_state(21, 'high')
+    else:
+        set_state(21, 'low')
+
+    time.sleep(60)
