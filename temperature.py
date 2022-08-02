@@ -14,6 +14,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
 # GPIO.setwarnings(False)
 
+heater_state = 0
+
 while True:
     try:
         with open(r'/home/dragon/dragon_project/schedule.csv', mode='r') as inp:
@@ -28,8 +30,6 @@ while True:
 
         humidity, temperature = Adafruit_DHT.read_retry(sensor_type, pin)
         print('Current Temp: ' + str(temperature))
-
-        heater_state = 0
 
         if not GPIO.input(20) and (temperature > upper_limit):
             GPIO.setup(20, GPIO.HIGH)
