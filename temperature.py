@@ -39,7 +39,7 @@ while True:
         elif temperature < lower_limit:
             GPIO.setup(20, GPIO.LOW)
             print('Turning On')
-            heater_state = 0
+            heater_state = 1
 
         r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
                                                                           'field1': round(temperature, 1),
