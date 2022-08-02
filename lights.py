@@ -5,7 +5,9 @@ import requests
 
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 
-times = [11, 12, 13, 14, 15]
+#times = [11, 12, 13, 14, 15]
+
+times = [20]
 
 GPIO.setmode(GPIO.BCM)
 
@@ -24,10 +26,10 @@ while True:
     hour = datetime.datetime.now().hour
 
     if hour in times:
-        set_state(21, 'high')
+        #set_state(21, 'high')
         light_state = 1
     else:
-        set_state(21, 'low')
+        #set_state(21, 'low')
         light_state = 0
 
     r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
