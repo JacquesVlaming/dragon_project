@@ -5,16 +5,14 @@ import time
 import datetime
 import csv
 
-times = [8, 9, 10, 11, 12, 13]
+times = [8, 9, 10]
 
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
 
 GPIO.setmode(GPIO.BCM)
-# GPIO.setwarnings(False)
 GPIO.setup(20, GPIO.IN)
-# GPIO.setwarnings(False)
 
 heater_state = 0
 
