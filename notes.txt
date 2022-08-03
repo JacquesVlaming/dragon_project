@@ -33,6 +33,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable maintain_temp.service
 sudo systemctl start maintain_temp.service
 
+sudo systemctl disable lights.service
+
 
 *******************************************
 
@@ -52,6 +54,7 @@ sudo systemctl stop maintain_temp.service
 
 Check service's log
 sudo journalctl -f -u maintain_temp.service
+sudo journalctl -f -u lights
 
 
 
