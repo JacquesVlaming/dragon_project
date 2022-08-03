@@ -5,7 +5,7 @@ import requests
 
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 
-times = [11, 12, 13, 14, 15]
+times = [8, 9, 10, 11, 12, 13]
 
 
 GPIO.setmode(GPIO.BCM)
