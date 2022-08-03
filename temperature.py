@@ -56,7 +56,8 @@ while True:
                                                                           'field1': round(temperature, 1),
                                                                           'field2': humidity,
                                                                           'field3': heater_state,
-                                                                          'field4': light_state
+                                                                          'field4': light_state,
+                                                                          'field5': ideal
                                                                           })
         time.sleep(60)
     except:
