@@ -31,6 +31,8 @@ while True:
         set_state(21, 'low')
         light_state = 0
 
+    print(light_state)
+
     r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
                                                                       'field4': light_state})
     time.sleep(60)
