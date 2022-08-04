@@ -5,7 +5,7 @@ import time
 import datetime
 import csv
 
-times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]
+times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
