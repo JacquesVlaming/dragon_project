@@ -6,7 +6,7 @@ import datetime
 import csv
 
 #times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-times = [7, 8, 9, 10, 11]
+times = [7, 8, 9, 10]
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
