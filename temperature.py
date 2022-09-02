@@ -4,12 +4,24 @@ import RPi.GPIO as GPIO
 import time
 import datetime
 import csv
+from elasticsearch import Elasticsearch
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 #times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-times = [7, 8, 9, 10]
+times = [7, 8, 9, 10, 11, 12]
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
+
+es = Elasticsearch(
+    cloud_id=config['ELASTIC']['cloud_id'],
+    verify_certs=False,
+    ssl_show_warn=False,
+    basic_auth=(config['ELASTIC']['user'], config['ELASTIC']['password'])
+)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
@@ -57,6 +69,17 @@ while True:
                                                                           'field4': light_state,
                                                                           'field5': ideal
                                                                           })
+
+        elastic_data = {"timestamp": datetime.datetime.now(),
+                        "temperature": round(temperature, 1),
+                        "humidity": humidity,
+                        "heater_state": heater_state,
+                        "light_state": light_state,
+                        "ideal_temp": ideal
+                        }
+
+        es.index(index='dragons_den', document=elastic_data)
         time.sleep(60)
-    except:
-        pass
+
+    except Exception as e:
+            print(e)
