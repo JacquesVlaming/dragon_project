@@ -5,7 +5,7 @@ import requests
 
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 
-times = [8, 9, 10, 11, 12, 13]
+uva_times = [8, 9, 10, 11, 12, 13]
 
 uvb_times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
@@ -26,7 +26,7 @@ def set_state(set_pin, new_state):
 while True:
     hour = datetime.datetime.now().hour
 
-    if hour in times:
+    if hour in uva_times:
         set_state(21, 'high')
         light_state = 1
     else:
