@@ -34,10 +34,10 @@ while True:
         light_state = 0
 
     if hour in uvb_times:
-        set_state(25, 'high')
+        set_state(26, 'high')
         light_state = 1
     else:
-        set_state(25, 'low')
+        set_state(26, 'low')
         light_state = 0
 
     print(light_state)
