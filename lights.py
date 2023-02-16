@@ -5,9 +5,7 @@ import requests
 
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 
-uva_times = [8, 9, 10, 11, 12, 13]
-
-uvb_times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+uva_times = [8, 9, 10, 11, 12, 13, 14]
 
 GPIO.setmode(GPIO.BCM)
 
@@ -29,17 +27,9 @@ while True:
     if hour in uva_times:
         set_state(21, 'high')
         light_state = 1
-        if hour in uva_times:
-            set_state(26, 'high')
-        else:
-            set_state(26, 'low')
     else:
         set_state(21, 'low')
         light_state = 0
-        if hour in uva_times:
-            set_state(26, 'high')
-        else:
-            set_state(26, 'low')
 
     print(light_state)
 
