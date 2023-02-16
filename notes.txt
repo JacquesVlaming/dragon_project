@@ -59,8 +59,9 @@ Check service's log
 sudo journalctl -f -u maintain_temp.service
 sudo journalctl -f -u lights
 
+*******************************************
 
-
+pjV3IMYEZLWSqHJigKPwoQZs
 
 
 

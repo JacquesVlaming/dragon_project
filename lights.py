@@ -7,10 +7,12 @@ thingspeak_key = 'ENOI1RNJHYXDY80C'
 
 times = [8, 9, 10, 11, 12, 13]
 
+uvb_times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
 GPIO.setmode(GPIO.BCM)
 
 light_state = 0
+uvb_light_state = 0
 
 def set_state(set_pin, new_state):
     if new_state == 'high':
@@ -29,6 +31,13 @@ while True:
         light_state = 1
     else:
         set_state(21, 'low')
+        light_state = 0
+
+    if hour in uvb_times:
+        set_state(25, 'high')
+        light_state = 1
+    else:
+        set_state(25, 'low')
         light_state = 0
 
     print(light_state)
