@@ -11,7 +11,10 @@ config = configparser.ConfigParser()
 config.read(r'/home/dragon/dragon_project/config.ini')
 
 #times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-times = [7, 8, 9, 10, 11, 12]
+times = [7, 8, 9, 10, 11, 12, 13, 14]
+uvb_times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+
 pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
@@ -60,6 +63,13 @@ while True:
             light_state = 1
         else:
             GPIO.setup(21, GPIO.HIGH)
+            light_state = 0
+
+        if hour in uvb_times:
+            GPIO.setup(26, GPIO.LOW)
+            light_state = 1
+        else:
+            GPIO.setup(26, GPIO.HIGH)
             light_state = 0
 
         r = requests.post('https://api.thingspeak.com/update.json', data={'api_key': thingspeak_key,
