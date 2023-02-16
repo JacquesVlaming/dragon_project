@@ -26,7 +26,7 @@ def set_state(set_pin, new_state):
 while True:
     hour = datetime.datetime.now().hour
 
-    if hour in uva_times:
+    if hour in uvb_times:
         set_state(21, 'high')
         light_state = 1
     else:
@@ -35,10 +35,10 @@ while True:
 
     if hour in uvb_times:
         set_state(26, 'high')
-        light_state = 1
+        # light_state = 1
     else:
         set_state(26, 'low')
-        light_state = 0
+        # light_state = 0
 
     print(light_state)
 
