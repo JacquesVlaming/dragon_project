@@ -52,6 +52,7 @@ sudo systemctl restart maintain_temp.service
 Stop service
 sudo systemctl stop maintain_temp.service
 
+sudo systemctl restart lights.service
 
 sudo systemctl disable lights.service
 

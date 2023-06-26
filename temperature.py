@@ -7,11 +7,11 @@ import csv
 from elasticsearch import Elasticsearch
 import configparser
 
-config = configparser.ConfigParser()
-config.read(r'/home/dragon/dragon_project/config.ini')
+# config = configparser.ConfigParser()
+# config.read(r'/home/dragon/dragon_project/config.ini')
 
-#times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-times = [7, 8, 9, 10, 11, 12, 13]
+times = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+# times = [7, 8, 9, 10, 11, 12, 13]
 uvb_times = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
 
@@ -19,15 +19,16 @@ pin = 4
 thingspeak_key = 'ENOI1RNJHYXDY80C'
 sensor_type = 22
 
-es = Elasticsearch(
-    cloud_id=config['ELASTIC']['cloud_id'],
-    verify_certs=False,
-    ssl_show_warn=False,
-    basic_auth=(config['ELASTIC']['user'], config['ELASTIC']['password'])
-)
+# es = Elasticsearch(
+#     cloud_id=config['ELASTIC']['cloud_id'],
+#     verify_certs=False,
+#     ssl_show_warn=False,
+#     basic_auth=(config['ELASTIC']['user'], config['ELASTIC']['password'])
+# )
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(20, GPIO.IN)
+GPIO.setwarnings(False)
 
 heater_state = 0
 
@@ -50,12 +51,12 @@ while True:
 
         if not GPIO.input(20) and (temperature > upper_limit):
             GPIO.setup(20, GPIO.HIGH)
-            print('Turning Off')
+            # print('Turning Off')
             heater_state = 0
 
         elif temperature < lower_limit:
             GPIO.setup(20, GPIO.LOW)
-            print('Turning On')
+            # print('Turning On')
             heater_state = 1
 
         if hour in times:
@@ -80,15 +81,15 @@ while True:
                                                                           'field5': ideal
                                                                           })
 
-        elastic_data = {"timestamp": datetime.datetime.now(),
-                        "temperature": round(temperature, 1),
-                        "humidity": humidity,
-                        "heater_state": heater_state,
-                        "light_state": light_state,
-                        "ideal_temp": ideal
-                        }
+        # elastic_data = {"timestamp": datetime.datetime.now(),
+        #                 "temperature": round(temperature, 1),
+        #                 "humidity": humidity,
+        #                 "heater_state": heater_state,
+        #                 "light_state": light_state,
+        #                 "ideal_temp": ideal
+        #                 }
 
-        es.index(index='dragons_den', document=elastic_data)
+        # es.index(index='dragons_den', document=elastic_data)
         time.sleep(60)
 
     except Exception as e:
