@@ -70,6 +70,22 @@ pjV3IMYEZLWSqHJigKPwoQZs
 
 
 
+****************************
+
+sudo chmod 644 /lib/systemd/system/maintain_temp.service
+chmod +x /home/dragon/dragon_project/temperature.py
+sudo systemctl daemon-reload
+sudo systemctl enable maintain_temp.service
+sudo systemctl start maintain_temp.service
+
+sudo systemctl disable lights.service
+
+
+
+
+
+
+
 
 
 
